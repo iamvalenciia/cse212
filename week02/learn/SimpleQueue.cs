@@ -54,7 +54,12 @@
     /// </summary>
     /// <param name="value">Integer value to add to the queue</param>
     private void Enqueue(int value) {
-        _queue.Insert(0, value);
+        // before: _queue.Insert(0, value); => Inserts the values at the beginning of the list
+        // after: _queue.Add(value); => Inserts the values at the end of the list
+
+        // Conclusion: To preserve the FIFO behavior of a queue, 
+        // elements must be added to the end of the list and removed from the beginning
+        _queue.Add(value);
     }
 
     /// <summary>
@@ -66,8 +71,8 @@
         if (_queue.Count <= 0)
             throw new IndexOutOfRangeException();
 
-        var value = _queue[1];
-        _queue.RemoveAt(1);
+        var value = _queue[0];
+        _queue.RemoveAt(0);
         return value;
     }
 }
